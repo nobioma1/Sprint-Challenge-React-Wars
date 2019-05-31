@@ -7,12 +7,14 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      starwarsChars: []
+      starwarsChars: [],
+      previous: null,
+      next: null,
     };
   }
 
   componentDidMount() {
-    this.getCharacters('https://swapi.co/api/people/');
+    this.getCharacters('https://swapi.co/api/people');
   }
 
   getCharacters = URL => {
@@ -24,19 +26,36 @@ class App extends Component {
         return res.json();
       })
       .then(data => {
-        this.setState({ starwarsChars: data.results });
+        this.setState({
+          starwarsChars: data.results,
+          previous: data.previous,
+          next: data.next
+        });
       })
       .catch(err => {
         throw new Error(err);
       });
   };
 
+  next = (nextLink) => {
+    if (!!nextLink) this.getCharacters(nextLink);
+  }
+
+  previous = (previousLink) => {
+    if (!!previousLink) this.getCharacters(previousLink);
+  }
+
   render() {
     return (
       <div className="App">
         <h1 className="Header">React Wars</h1>
         <div className="character-container">
-          <AllCharacters characters={this.state.starwarsChars} />
+          <AllCharacters 
+            goPrevious={this.previous}
+            previousLink={this.state.previous} 
+            goNext={this.next}
+            nextLink={this.state.next} 
+            characters={this.state.starwarsChars} />
         </div>
       </div>
     );
