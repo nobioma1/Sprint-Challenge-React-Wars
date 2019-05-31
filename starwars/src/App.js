@@ -10,6 +10,7 @@ class App extends Component {
       starwarsChars: [],
       previous: null,
       next: null,
+      loading: false
     };
   }
 
@@ -18,6 +19,7 @@ class App extends Component {
   }
 
   getCharacters = URL => {
+    this.setState({ loading: true });
     // feel free to research what this code is doing.
     // At a high level we are calling an API to fetch some starwars data from the open web.
     // We then take that data and resolve it our state.
@@ -26,6 +28,7 @@ class App extends Component {
         return res.json();
       })
       .then(data => {
+        this.setState({ loading: false });
         this.setState({
           starwarsChars: data.results,
           previous: data.previous,
@@ -37,25 +40,27 @@ class App extends Component {
       });
   };
 
-  next = (nextLink) => {
+  next = nextLink => {
     if (!!nextLink) this.getCharacters(nextLink);
-  }
+  };
 
-  previous = (previousLink) => {
+  previous = previousLink => {
     if (!!previousLink) this.getCharacters(previousLink);
-  }
+  };
 
   render() {
     return (
       <div className="App">
         <h1 className="Header">React Wars</h1>
         <div className="character-container">
-          <AllCharacters 
+          <AllCharacters
             goPrevious={this.previous}
-            previousLink={this.state.previous} 
+            previousLink={this.state.previous}
             goNext={this.next}
-            nextLink={this.state.next} 
-            characters={this.state.starwarsChars} />
+            nextLink={this.state.next}
+            characters={this.state.starwarsChars}
+            loading={this.state.loading}
+          />
         </div>
       </div>
     );
