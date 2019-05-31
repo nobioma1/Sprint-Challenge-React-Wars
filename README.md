@@ -101,7 +101,7 @@ Your finished project must include all of the following requirements:
 
 - [x] A list of Star Wars Characters rendered to the screen.
 - [x] You must have at least one list element for each star wars character in the data set.
-- [ ] The list elements must all be minimally styled. (Don't rely on browser default styles.)
+- [x] The list elements must all be minimally styled. (Don't rely on browser default styles.)
 
 Required best practices:
 
