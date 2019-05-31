@@ -6,11 +6,12 @@ const AllCharacters = ({ characters }) => {
     <div className="characters">
       {characters.length > 0 ? (
         <ul>
+          <h1 className="Header">Characters</h1>
           {characters.map(character => {
             return (
-              <li>
+              <li key={character.url}>
                 <Character character={character} />
-              </li> 
+              </li>
             );
           })}
         </ul>
