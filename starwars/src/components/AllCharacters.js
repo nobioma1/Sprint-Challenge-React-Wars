@@ -1,7 +1,9 @@
 import React from 'react';
 import Character from './Character';
+import Pagination from './Pagination';
 
-const AllCharacters = ({ characters }) => {
+const AllCharacters = props => {
+  const { characters, goNext, nextLink, goPrevious, previousLink } = props;
   return (
     <div className="characters">
       {characters.length > 0 ? (
@@ -14,9 +16,15 @@ const AllCharacters = ({ characters }) => {
               </li>
             );
           })}
+          <Pagination
+            goNext={goNext}
+            nextLink={nextLink}
+            goPrevious={goPrevious}
+            previousLink={previousLink}
+          />
         </ul>
       ) : (
-        <p>No Character Available</p>
+        <p className="loading">Getting StarWars Characters...</p>
       )}
     </div>
   );
